@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import { connect } from "mongoose";
-import signupRoad from "./routes/signUpRoad.mjs";
+import signUpRoad from "./routes/signUpRoad.mjs";
+import signInRoad from "./routes/signInRoad.js";
 import cors from "cors";
 
 const app = express();
@@ -23,7 +24,8 @@ connect(
 
 //utilisation des routeurs
 
-app.use("/signup", signupRoad);
+app.use("/signUp", signUpRoad);
+app.use("/signIn", signInRoad);
 
 // TEST
 app.post("/", (req, res) => {
