@@ -1,9 +1,7 @@
-import { Router } from "express";
-import bcrypt from "bcrypt";
 import user from "../models/user.mjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const router = Router();
 const compareUser = async function (email, pswd) {
   const ficheUser = await user.findOne({ email: email });
   if (ficheUser) {
@@ -24,16 +22,29 @@ const createToken = (id) => {
   });
 };
 
-router.post("/", async (req, res) => {
+export const SignIn = async (req, res) => {
   let data = req.body;
   try {
     const result = await compareUser(data.email, data.pswd);
     const token = createToken(result);
-    res.cookie("jwt", token, { maxAge });
+    res.cookie("jwt", token, { httpOnly: true, maxAge });
     res.status(200).json({ user: result });
   } catch (error) {
     res.status(401).send(error.message);
   }
-});
+};
 
-export default router;
+export const SignUp = (req, res) => {
+  let data = req.body;
+  bcrypt.hash(data.pswd, 10).then((hash) => {
+    data.pswd = hash;
+    const newUser = {
+      name: data.nom,
+      firstName: data.prenom,
+      email: data.email,
+      password: data.pswd,
+    };
+
+    user.create(newUser).catch((err) => console.error(err));
+  });
+};

@@ -1,7 +1,6 @@
 import express, { json } from "express";
 import { connect } from "mongoose";
-import signUpRoad from "./routes/signUpRoad.mjs";
-import signInRoad from "./routes/signInRoad.js";
+import LogInRoad from "./routes/logInRoads.js";
 import cors from "cors";
 
 const app = express();
@@ -9,7 +8,11 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-// import des logiques de routage
+//utilisation des routeurs
+app.use("/logIn", LogInRoad);
+// TEST
+
+//TEST
 
 //connexion à la base de donnée
 connect(
@@ -20,17 +23,7 @@ connect(
   }
 )
   .then(() => console.log("Connexion à MongoDB réussie !"))
+  .then((result) => {
+    app.listen(3001, () => console.log("Server started on port 3001"));
+  })
   .catch(() => console.log("Connexion à MongoDB échouée !"));
-
-//utilisation des routeurs
-
-app.use("/signUp", signUpRoad);
-app.use("/signIn", signInRoad);
-
-// TEST
-app.post("/", (req, res) => {
-  res.send("requete reçu");
-});
-//TEST
-
-app.listen(3001, () => console.log("Server started on port 3001"));
