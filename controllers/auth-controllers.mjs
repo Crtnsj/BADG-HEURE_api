@@ -1,9 +1,9 @@
-import user from "../models/user.mjs";
+import userModel from "../models/user.mjs";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const compareUser = async function (email, pswd) {
-  const ficheUser = await user.findOne({ email: email });
+  const ficheUser = await userModel.findOne({ email: email });
   if (ficheUser) {
     const auth = await bcrypt.compare(pswd, ficheUser.password);
     if (auth) {
@@ -22,7 +22,7 @@ const createToken = (id) => {
   });
 };
 
-export const SignIn = async (req, res) => {
+export const signIn = async (req, res) => {
   let data = req.body;
   try {
     const result = await compareUser(data.email, data.pswd);
@@ -34,7 +34,7 @@ export const SignIn = async (req, res) => {
   }
 };
 
-export const SignUp = (req, res) => {
+export const signUp = (req, res) => {
   let data = req.body;
   bcrypt.hash(data.pswd, 10).then((hash) => {
     data.pswd = hash;
@@ -45,6 +45,6 @@ export const SignUp = (req, res) => {
       password: data.pswd,
     };
 
-    user.create(newUser).catch((err) => console.error(err));
+    userModel.create(newUser).catch((err) => console.error(err));
   });
 };

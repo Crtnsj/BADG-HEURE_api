@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import { connect } from "mongoose";
-import LogInRoad from "./routes/logInRoads.js";
+import LogInRoads from "./routes/logInRoads.js";
+import BadgRoads from "./routes/badgRoads.js";
 import cors from "cors";
 
 const app = express();
@@ -9,7 +10,8 @@ app.use(json());
 app.use(cors());
 
 //utilisation des routeurs
-app.use("/logIn", LogInRoad);
+app.use("/logIn", LogInRoads);
+app.use("/badg", BadgRoads);
 // TEST
 
 //TEST

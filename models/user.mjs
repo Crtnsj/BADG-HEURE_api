@@ -10,4 +10,4 @@ const userSchema = Schema({
   stayconnect: { type: Boolean, require: false },
 });
 
-export default model("user", userSchema);
+export default model("userModel", userSchema);

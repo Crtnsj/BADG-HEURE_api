@@ -4,7 +4,7 @@ const badgeageSchema = Schema({
   heure: { type: String, require: true },
   date: { type: String, require: true },
   userID: { type: String, require: true },
-  valid: { type: Boolean, require: true },
+  valid: { type: Boolean, require: false },
 });
 
-export default model("badgeage", badgeageSchema);
+export default model("badgModel", badgeageSchema);
