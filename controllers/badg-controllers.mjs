@@ -1,24 +1,37 @@
-import badgModel from "../models/badgeage.mjs";
+import badgModel from "../models/badgModel.mjs";
 
-export const badgIn = (req, res) => {
+export const badgIn = (req, res, next) => {
   let data = req.body;
   const newBadgeage = {
-    heure: data.hour,
+    heure: data.heure,
     date: data.date,
     userID: data.userID,
     valid: data.valid,
   };
-  badgModel.create(newBadgeage).catch((err) => console.error(err));
-  res.status(201).json({
-    message: "badgeage pris en compte",
-  });
+  badgModel
+    .create(newBadgeage)
+    .then(() => {
+      res.status(201).json({
+        message: "badgeage pris en compte",
+      });
+    })
+    .catch((error) => {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+      }
+      next(error.statusCode);
+    });
 };
 
-export const viewBadg = (req, res) => {
-  let data = req.body;
-  const retrospective = badgModel.findOne({ userID: data.userID });
+export const getViewBadg = async (req, res) => {
+  const retrospective = async (userID) => {
+    const finder = await badgModel.find({ userID: userID });
+    return finder;
+  };
+  const data = await retrospective(req.body.userID);
+
   res.status(200).json({
     message: "voici vos badgeages",
-    data: { retrospective },
+    data: data,
   });
 };

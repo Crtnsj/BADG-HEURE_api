@@ -12,6 +12,7 @@ app.use(cors());
 //utilisation des routeurs
 app.use("/logIn", LogInRoads);
 app.use("/badg", BadgRoads);
+
 // TEST
 
 //TEST
@@ -25,7 +26,7 @@ connect(
   }
 )
   .then(() => console.log("Connexion à MongoDB réussie !"))
-  .then((result) => {
+  .then(() => {
     app.listen(3001, () => console.log("Server started on port 3001"));
   })
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
+  .catch(() => "Connexion à MongoDB échouée !");

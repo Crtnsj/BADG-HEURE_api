@@ -1,4 +1,4 @@
-import badgModel from "../models/badgeage.mjs";
+import badgModel from "../models/badgModel.mjs";
 
 export const view = (req, res) => {
   let data = req.body;
