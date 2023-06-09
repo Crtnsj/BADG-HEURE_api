@@ -2,6 +2,8 @@ import express, { json } from "express";
 import { connect } from "mongoose";
 import LogInRoads from "./routes/logInRoads.js";
 import BadgRoads from "./routes/badgRoads.js";
+import Account from "./routes/accountRoads.js";
+import News from "./routes/newsRoads.js";
 import cors from "cors";
 
 const app = express();
@@ -12,6 +14,15 @@ app.use(cors());
 //utilisation des routeurs
 app.use("/logIn", LogInRoads);
 app.use("/badg", BadgRoads);
+app.use("/account", Account);
+app.use("/news", News);
+app.use((err, req, res, next) => {
+  if (req.xhr) {
+    res.status(500).send({ error: "Something failed!" });
+  } else {
+    next(err);
+  }
+});
 
 // TEST
 

@@ -1,8 +1,29 @@
 import newsModel from "../models/newsModel.mjs";
 
-export const viewNews = (req, res) => {
-  const news = newsModel.find();
-  res.status(200).json(news);
+export const viewNews = async (req, res) => {
+  const news = await newsModel.find();
+  res.send(news);
 };
 
-export const addNews = (req, res) => {};
+export const addNews = (req, res, next) => {
+  let data = req.body;
+  const newPost = {
+    type: data.type,
+    important: data.important,
+    content: data.content,
+  };
+
+  newsModel
+    .create(newPost)
+    .then(() => {
+      res.status(201).json({
+        message: "News crée",
+      });
+    })
+    .catch((error) => {
+      if (!error.statusCode) {
+        error.statusCode = 500;
+      }
+      next(error);
+    });
+};

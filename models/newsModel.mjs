@@ -2,9 +2,9 @@ import { Schema, model } from "mongoose";
 
 const newsSchema = Schema(
   {
-    type: { type: Number, require: false },
+    type: { type: String, require: false },
     important: { type: Boolean, require: false },
-    data: { type: String, require: true },
+    content: { type: String, require: true },
   },
   { collection: "News" }
 );
