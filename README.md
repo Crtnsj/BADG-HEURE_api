@@ -7,7 +7,7 @@ Ceci est une API construite avec Node.js, Express et MongoDB.
 Clonez le référentiel sur votre machine locale en utilisant la commande suivante :
 
 ```
-git clone https://github.com/votre-nom/utilisateur/api.git
+git clone https://github.com/Crtnsj/BADG-HEURE_api.git
 ```
 
 Installez les dépendances NPM en utilisant la commande suivante :
