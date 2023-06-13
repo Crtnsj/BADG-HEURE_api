@@ -1,6 +1,8 @@
 import userModel from "../models/userModel.mjs";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const compareUser = async function (email, pswd) {
   const ficheUser = await userModel.findOne({ email: email });
@@ -17,7 +19,7 @@ const compareUser = async function (email, pswd) {
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 const createToken = (id) => {
-  return jwt.sign({ id }, "4X3rzTTDatg6BgjCCa7hh18Vlmwe6f", {
+  return jwt.sign({ id }, process.env.TOKEN_SECRET, {
     expiresIn: maxAge,
   });
 };
@@ -25,7 +27,7 @@ const createToken = (id) => {
 export const signIn = async (req, res) => {
   let data = req.body;
   try {
-    const result = await compareUser(data.email, data.pswd);
+    const result = await compareUser(data.email, data.password);
     const token = createToken(result);
     res.cookie("jwt", token, { httpOnly: true, maxAge });
     res.status(200).json({ user: result });
@@ -36,13 +38,13 @@ export const signIn = async (req, res) => {
 
 export const signUp = (req, res) => {
   let data = req.body;
-  bcrypt.hash(data.pswd, 10).then((hash) => {
-    data.pswd = hash;
+  bcrypt.hash(data.password, 10).then((hash) => {
+    data.password = hash;
     const newUser = {
       name: data.nom,
       firstName: data.prenom,
       email: data.email,
-      password: data.pswd,
+      password: data.password,
     };
 
     userModel.create(newUser).catch((err) => console.error(err));
