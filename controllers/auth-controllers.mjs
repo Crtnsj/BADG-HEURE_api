@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-const compareUser = async function (email, pswd) {
+const compareUser = async (email, pswd) => {
   const ficheUser = await userModel.findOne({ email: email });
   if (ficheUser) {
     const auth = await bcrypt.compare(pswd, ficheUser.password);
@@ -16,9 +16,9 @@ const compareUser = async function (email, pswd) {
   throw Error("incorrect email");
 };
 
-const maxAge = 3 * 24 * 60 * 60 * 1000;
+const maxAge = 2592000000; //30 jours;
 
-const createToken = (id) => {
+const createToken = async (id) => {
   return jwt.sign({ id }, process.env.SECRET_TOKEN, {
     expiresIn: maxAge,
   });
@@ -28,7 +28,7 @@ export const signIn = async (req, res) => {
   let data = req.body;
   try {
     const result = await compareUser(data.email, data.password);
-    const token = createToken(result);
+    const token = await createToken(result);
     res.status(200).json({
       user: result,
       token: token,

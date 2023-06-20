@@ -7,6 +7,8 @@ import NewsRoads from "./routes/newsRoads.js";
 import CompanyRoads from "./routes/companyRoads.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import isAuth from "./middleware/isAuth.js";
+
 dotenv.config();
 
 const app = express();
@@ -15,7 +17,9 @@ app.use(json());
 app.use(cors());
 
 //utilisation des routeurs
+
 app.use("/logIn", LogInRoads);
+app.use(isAuth);
 app.use("/badg", BadgRoads);
 app.use("/account", AccountRoads);
 app.use("/news", NewsRoads);
