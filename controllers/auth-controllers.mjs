@@ -19,7 +19,7 @@ const compareUser = async function (email, pswd) {
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.TOKEN_SECRET, {
+  return jwt.sign({ id }, process.env.SECRET_TOKEN, {
     expiresIn: maxAge,
   });
 };
@@ -29,8 +29,10 @@ export const signIn = async (req, res) => {
   try {
     const result = await compareUser(data.email, data.password);
     const token = createToken(result);
-    res.cookie("jwt", token, { httpOnly: true, maxAge });
-    res.status(200).json({ user: result });
+    res.status(200).json({
+      user: result,
+      token: token,
+    });
   } catch (error) {
     res.status(401).send(error.message);
   }
