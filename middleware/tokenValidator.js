@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export default async (req, res, next) => {
+const tokenValidator = async (req, res) => {
   const authHeader = req.get("Authorization");
   if (!authHeader) {
     res.status(403).json({ message: "No token" });
@@ -13,9 +13,11 @@ export default async (req, res, next) => {
       console.error(err);
     }
     if (!decodedToken) {
-      res.status(401).json({ message: "Invalid token" });
+      res.status(200).json({ valid: false });
     } else {
-      next();
+      res.status(200).json({ valid: true });
     }
   }
 };
+
+export default tokenValidator;

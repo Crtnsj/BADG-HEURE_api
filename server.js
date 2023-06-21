@@ -8,6 +8,7 @@ import CompanyRoads from "./routes/companyRoads.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import isAuth from "./middleware/isAuth.js";
+import tokenValidator from "./middleware/tokenValidator.js";
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use(json());
 app.use(cors());
 
 //utilisation des routeurs
-
+app.use("/tokenValidator", tokenValidator);
 app.use("/logIn", LogInRoads);
 app.use(isAuth);
 app.use("/badg", BadgRoads);
