@@ -2,7 +2,9 @@ import newsModel from "../models/newsModel.mjs";
 
 export const viewNews = async (req, res) => {
   const news = await newsModel.find();
-  res.send(news);
+  const isAdmin = req.isAdmin;
+
+  res.status(200).json({ news, isAdmin });
 };
 
 export const addNews = (req, res, next) => {

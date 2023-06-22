@@ -9,6 +9,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import isAuth from "./middleware/isAuth.js";
 import tokenValidator from "./middleware/tokenValidator.js";
+import isAdmin from "./middleware/isAdmin.js";
+import adminValidator from "./middleware/adminValidator.js";
 
 dotenv.config();
 
@@ -21,6 +23,8 @@ app.use(cors());
 app.use("/tokenValidator", tokenValidator);
 app.use("/logIn", LogInRoads);
 app.use(isAuth);
+app.use(isAdmin);
+app.use("/adminValidator", adminValidator);
 app.use("/badg", BadgRoads);
 app.use("/account", AccountRoads);
 app.use("/news", NewsRoads);
