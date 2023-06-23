@@ -29,6 +29,8 @@ app.use("/badg", BadgRoads);
 app.use("/account", AccountRoads);
 app.use("/news", NewsRoads);
 app.use("/company", CompanyRoads);
+
+//middleware de gestion d'erreur
 app.use((err, req, res, next) => {
   if (req.xhr) {
     res.status(500).send({ error: "Something failed!" });
@@ -36,10 +38,6 @@ app.use((err, req, res, next) => {
     next(err);
   }
 });
-
-// TEST
-
-//TEST
 
 //connexion à la base de donnée
 connect(

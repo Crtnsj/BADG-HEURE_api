@@ -1,5 +1,6 @@
 import newsModel from "../models/newsModel.mjs";
 
+//middleware pour rendre les news et si l'utilisateur est admin ou non, afin de gerer l'affichage
 export const viewNews = async (req, res) => {
   const news = await newsModel.find();
   const isAdmin = req.isAdmin;
@@ -7,6 +8,7 @@ export const viewNews = async (req, res) => {
   res.status(200).json({ news, isAdmin });
 };
 
+//middleware pour ajouter des news
 export const addNews = (req, res, next) => {
   let data = req.body;
   const newPost = {

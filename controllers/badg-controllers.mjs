@@ -1,5 +1,6 @@
 import badgModel from "../models/badgModel.mjs";
 
+//middleware servant à la création d'un badgeage
 export const badgIn = (req, res, next) => {
   let data = req.body;
   const newBadgeage = {
@@ -23,6 +24,7 @@ export const badgIn = (req, res, next) => {
     });
 };
 
+//middleware servant à voir les badgeages
 export const getViewBadg = async (req, res) => {
   const retrospective = async (userID) => {
     const finder = await badgModel.find({ userID: userID });

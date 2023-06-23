@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 
+//model correspondant aux news
 const newsSchema = Schema(
   {
     type: { type: String, require: false },

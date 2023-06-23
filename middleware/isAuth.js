@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+//middleware qui verifie l'autenticité du token et qui ajoute l'user ID dans la requête
 export default async (req, res, next) => {
   const authHeader = req.get("Authorization");
   if (!authHeader) {

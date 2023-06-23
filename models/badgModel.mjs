@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 
+//model correspondant aux badgeages
 const badgeageSchema = Schema(
   {
     heure: { type: String, require: true },

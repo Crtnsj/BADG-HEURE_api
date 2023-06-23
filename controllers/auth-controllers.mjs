@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+//fonction qui compare les informations d'un utilisateur
 const compareUser = async (email, pswd) => {
   const ficheUser = await userModel.findOne({ email: email });
   if (ficheUser) {
@@ -16,14 +17,17 @@ const compareUser = async (email, pswd) => {
   throw Error("incorrect email");
 };
 
+//constante qui définit la durée de vie d'un JWT
 const maxAge = 2592000000; //30 jours;
 
+//fonction pour créer un JWT
 const createToken = async (id) => {
   return jwt.sign({ id }, process.env.SECRET_TOKEN, {
     expiresIn: maxAge,
   });
 };
 
+//middleware servant à la connexion
 export const signIn = async (req, res) => {
   let data = req.body;
   try {
@@ -38,6 +42,7 @@ export const signIn = async (req, res) => {
   }
 };
 
+//middleware servant à la création d'un compte
 export const signUp = (req, res) => {
   let data = req.body;
   bcrypt.hash(data.password, 10).then((hash) => {

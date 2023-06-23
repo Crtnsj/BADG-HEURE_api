@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+//middleware verifie l'authenticté du token et rends le résultat
 const tokenValidator = async (req, res) => {
   const authHeader = req.get("Authorization");
   if (!authHeader) {
