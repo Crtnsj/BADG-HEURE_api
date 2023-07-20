@@ -28,11 +28,8 @@ const findAccount = async (userID) => {
 
 //middleware pour rendre les informations d'un compte via son ID
 export const view = async (req, res) => {
-  const data = await findAccount(req.params.id);
-  res.status(200).json({
-    message: "voici vos information personnelles",
-    data: data,
-  });
+  const accountData = await findAccount(req.userId);
+  res.status(200).json(accountData);
 };
 
 //fonction pour supprimer un compte via son ID
@@ -47,4 +44,16 @@ export const remove = async (req, res) => {
   res.status(200).json({
     message: "compte supprimé",
   });
+};
+const findAll = async () => {
+  const finder = await userModel.find({});
+  return finder;
+};
+export const viewAll = async (req, res) => {
+  const result = await findAll();
+  if (req.isAdmin === true) {
+    res.status(200).json({ result });
+  } else {
+    res.status(401);
+  }
 };

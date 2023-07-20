@@ -4,10 +4,8 @@ import badgModel from "../models/badgModel.mjs";
 export const badgIn = (req, res, next) => {
   let data = req.body;
   const newBadgeage = {
-    heure: data.heure,
     date: data.date,
-    userID: data.userID,
-    valid: data.valid,
+    userID: req.userId,
   };
   badgModel
     .create(newBadgeage)
@@ -24,16 +22,20 @@ export const badgIn = (req, res, next) => {
     });
 };
 
+const retrospective = async (userID) => {
+  const finder = await badgModel.find({ userID: userID });
+  return finder;
+};
+
 //middleware servant à voir les badgeages
 export const getViewBadg = async (req, res) => {
-  const retrospective = async (userID) => {
-    const finder = await badgModel.find({ userID: userID });
-    return finder;
-  };
-  const data = await retrospective(req.body.userID);
+  const data = await retrospective(req.userId);
+  const dates = data.map((item) => item.date);
+  res.status(200).json(dates);
+};
 
-  res.status(200).json({
-    message: "voici vos badgeages",
-    data: data,
-  });
+export const getBadgByID = async (req, res) => {
+  const data = await retrospective(req.params.id);
+  const dates = data.map((item) => item.date);
+  res.status(200).json(dates);
 };
