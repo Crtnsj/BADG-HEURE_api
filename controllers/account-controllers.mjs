@@ -1,23 +1,15 @@
 import userModel from "../models/userModel.mjs";
 
 //fonction pour changer les infos d'un compte
-const changeAccount = async (userID, champs, value) => {
-  const someObject = {};
-  someObject[champs] = value;
-  const changer = await userModel.findByIdAndUpdate(userID, someObject);
+const changeAccount = async (userID, value) => {
+  const changer = await userModel.findByIdAndUpdate(userID, value);
   return changer;
 };
 
 //middleware pour changer les informations d'un compte
 export const change = async (req, res) => {
-  const data = await changeAccount(
-    req.params.id,
-    req.body.champs,
-    req.body.value
-  );
-  res.status(200).json({
-    data: data,
-  });
+  await changeAccount(req.params.id, req.body);
+  res.status(200).json("OK");
 };
 
 //fonction pour trouver un compte via son ID
@@ -29,6 +21,11 @@ const findAccount = async (userID) => {
 //middleware pour rendre les informations d'un compte via son ID
 export const view = async (req, res) => {
   const accountData = await findAccount(req.userId);
+  res.status(200).json(accountData);
+};
+
+export const viewByID = async (req, res) => {
+  const accountData = await findAccount(req.params.id);
   res.status(200).json(accountData);
 };
 

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   change,
+  viewByID,
   remove,
   view,
   viewAll,
@@ -9,6 +10,7 @@ import {
 const router = Router();
 
 router.get("/view", view);
+router.get("/view/:id", viewByID);
 router.patch("/change/:id", change);
 router.delete("/remove/:id", remove);
 router.get("/viewAll", viewAll);
