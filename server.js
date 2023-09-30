@@ -41,9 +41,7 @@ app.use((err, req, res, next) => {
 
 //connexion à la base de donnée
 connect(
-  `mongodb+srv://` +
-    process.env.ACCESS_DB +
-    `@cluster0.qh5wykm.mongodb.net/BADG-HEURE?retryWrites=true&w=majority`,
+  `mongodb+srv://` + process.env.ACCESS_DB + `@cluster0.qh5wykm.mongodb.net/BADG-HEURE?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

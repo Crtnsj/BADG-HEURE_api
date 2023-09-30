@@ -2,7 +2,7 @@
 
 Ceci est une API construite avec Node.js, Express et MongoDB.
 
-# Installation
+## Installation
 
 Clonez le référentiel sur votre machine locale en utilisant la commande suivante :
 
@@ -24,7 +24,7 @@ ACCESS_DB=the_user&password_of_DB
 PORT=the_port
 ```
 
-# Utilisation
+## Utilisation
 
 Vous pouvez démarrer le serveur en utilisant la commande suivante :
 
@@ -32,28 +32,21 @@ Vous pouvez démarrer le serveur en utilisant la commande suivante :
 npm run dev
 ```
 
-# Scripts NPM
+## Scripts NPM
 
-npm run dev : démarre le serveur localement avec nodemon
+- `npm run dev` : démarre le serveur localement avec nodemon
+- `npm start` : démarre le serveur localement avec node
 
-npm start : démarre le serveur localement avec node
+## Dépendances
 
-# Dépendances
+- bcrypt: ^5.1.0
+- cors: ^2.8.5
+- dotenv: ^16.1.4
+- express: ^4.18.2
+- express-validator: ^7.0.1
+- jsonwebtoken: ^9.0.0
+- mongoose: ^7.2.2
 
-bcrypt : ^5.1.0
+## Dev Dépendances
 
-cors : ^2.8.5
-
-dotenv : ^16.1.4
-
-express : ^4.18.2
-
-express-validator : ^7.0.1
-
-jsonwebtoken : ^9.0.0
-
-mongoose : ^7.2.2
-
-# Dev Dépendances
-
-nodemon : ^2.0.22
+- nodemon: ^2.0.22
